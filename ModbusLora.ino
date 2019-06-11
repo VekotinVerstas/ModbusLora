@@ -36,11 +36,19 @@ void setup() {
 }
 
 void loop() {
-  float volt;
+  float volt, amp, watt;
   uint32_t runTime;
 
-  volt = modbusReadVolt();
+  volt = modbusReadFloat(0x0200);
   Serial.print("V: ");
+  Serial.println( volt );
+
+  amp = modbusReadFloat(0x0202);
+  Serial.print("A: ");
+  Serial.println( volt );
+
+  watt = modbusReadFloat(0x0204);
+  Serial.print("W: ");
   Serial.println( volt );
 
   runTime = modbusReadRunTime();
@@ -68,9 +76,11 @@ float modbusReadFloat(uint16_t addr) {
   return (volt);
 }
 
+/*
 float modbusReadVolt() {
-  return modbusReadFloat(0x0200);
+  return modbusReadFloat();
 }
+*/
 
 uint32_t modbusReadRunTime() {
   uint8_t result;
